@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$(realpath "$0")")/../data" || exit 1
+
+INP="stockholm.osm.pbf"
+OUT="stockholm.mbtiles"
+BBOX="16.1040956,54.403664,27.6169957,65.603333"
+
+echo "$(date) extracting stockholm from BBOX=($BBOX)"
+osmium extract --strategy smart \
+  --bbox "$BBOX" \
+  sweden.osm.pbf \
+  --overwrite \
+  -o "$INP"
+echo "$(date) finished extracting stockholm ==> $INP"
+
+echo "$(date) converting $INP to $OUT"
+sudo docker run --rm \
+    --user "$(id -u):$(id -g)" \
+    -v "$(pwd)":/data \
+    ghcr.io/systemed/tilemaker:master \
+    "/data/$INP" \
+    --bbox "$BBOX" \
+    --config "/data/config-openmaptiles.json" \
+    --process "/data/process-openmaptiles.lua" \
+    --output "/data/$OUT"
+echo "$(date) converted $INP to $OUT"

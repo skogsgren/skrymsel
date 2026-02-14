@@ -1,0 +1,7 @@
+data/*
+!data/config-openmaptiles.json
+!data/process-openmaptiles.lua
+
+fonts/
+
+*.swp

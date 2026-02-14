@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+## mostly based on the scripts at https://github.com/systemed/tilemaker
+set -euo pipefail
+
+cd "$(dirname "$(realpath "$0")")/.." || exit 1
+mkdir -p data
+cd data || exit 1
+
+download_and_extract(){
+    local URL=$1
+    local DIR=$2
+    echo "$(date) downloading $URL ==>$DIR"
+    mkdir -p "$DIR"
+    pushd "$DIR"
+        curl -fL -o file.zip "$URL"
+        unzip -o -j file.zip
+        rm file.zip
+    popd
+}
+
+download_and_extract \
+    "https://osmdata.openstreetmap.de/download/water-polygons-split-4326.zip" \
+    coastline
+
+mkdir -p landcover
+pushd landcover
+    download_and_extract \
+        "https://naciscdn.org/naturalearth/10m/physical/ne_10m_antarctic_ice_shelves_polys.zip" \
+        ne_10m_antarctic_ice_shelves_polys
+    download_and_extract \
+        "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_urban_areas.zip" \
+        ne_10m_urban_areas
+    download_and_extract \
+        "https://naciscdn.org/naturalearth/10m/physical/ne_10m_glaciated_areas.zip" \
+        ne_10m_glaciated_areas
+popd
+
+FILE="sweden.osm.pbf"
+URL="http://download.geofabrik.de/europe/sweden-latest.osm.pbf"
+echo "$(date) downloading $URL ==>$FILE"
+curl -fL -o "$FILE" "$URL"
