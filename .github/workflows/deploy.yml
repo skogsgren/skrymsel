@@ -1,0 +1,33 @@
+name: build and deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: install deps
+        run: pip install -r requirements.txt
+
+      - name: build site
+        run: python3 build.py
+
+      - name: deploy to VPS
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY:  ${{ secrets.SSH_KEY }}
+        run: |
+          install -m 600 /dev/null key
+          echo "$SSH_KEY" > key
+          rsync -az -e "ssh -i key -o StrictHostKeyChecking=no" \
+            ./serve/ ${SSH_USER}@${SSH_HOST}:/srv/caddy/skrymsel
