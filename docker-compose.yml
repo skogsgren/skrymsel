@@ -1,0 +1,9 @@
+tileserver:
+    image: maptiler/tileserver-gl:latest
+    container_name: tileserver-gl
+    ports:
+      - "8877:8080"
+    volumes:
+      #set TILESERVER_DATA in .env
+      - ${TILESERVER_DATA}:/data
+    restart: unless-stopped
