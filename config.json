@@ -12,17 +12,6 @@
     }
   },
   "styles": {
-    "osm-bright": {
-      "style": "bright/style.json",
-      "tilejson": {
-        "bounds": [
-          16.46,
-          58.64,
-          19.33,
-          60
-        ]
-      }
-    },
     "min": {
       "style": "min/style.json",
       "tilejson": {
