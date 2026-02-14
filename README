@@ -1,0 +1,64 @@
+    *
+      *
+
+   *
+  *
+SKRYMSEL
+      ':.
+         []_____
+        /\      \
+    ___/  \__/\__\__
+---/\___\ |''''''|__\-- ---
+   ||'''| |''||''|''|
+   ``"""`"`""))""`""`
+   alla skrymsel och vrån är täckta med damm
+   och det spelar ingen roll hur mycket vi dammsuger
+
+DESCRIPTION
+    self-hosted map of stockholm with manually annotated
+    places which I think are neat.
+
+    find out for yourself at https://skrymsel.missbr.uk
+    (if you know swedish that is --- otherwise have fun?)
+
+SERVER SETUP
+    first make sure docker is installed.
+
+    we download all the maps first:
+
+    ./scripts/download_maps
+
+    then crop to stockholm bbox and convert to tiles:
+
+    ./scripts/maps_to_tiles
+
+    then start the tilemap-gl server, either using run.sh
+    or by setting up the docker compose.
+
+WEBSITE SETUP
+    create pins in markdown (examples in the /pins folder).
+
+    install python requirements:
+
+    pip3 install -r requirements.txt
+
+    run build script:
+
+    python3 build.py
+
+    by default it creates the static website under /serve.
+    otherwise you can specify it:
+
+    python3 build.py /path/to/serve/dir
+
+CRED
+    theme's basically a stripped down version of
+    https://github.com/openmaptiles/osm-bright-gl-style
+
+    config/lua ripped straight from tilemap
+    https://github.com/systemed/tilemaker
+
+  .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .
+ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ /
+`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'
+" vim: set autoindent tw=60 cc=60 formatoptions+=t:

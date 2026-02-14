@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ pin.title }}{% endblock %}
+{% block body %}
+  <main class="page">
+    <article>
+      <h2>{{ pin.title }}</h2>
+      {% if pin.description %}
+        <p class="desc">{{ pin.description }}</p>
+      {% endif %}
+      <div class="content">{{ pin.body_html | safe }}</div>
+    </article>
+  </main>
+{% endblock %}

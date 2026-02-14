@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}skrymsel{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body>
+      <header>
+      <h1 class="site-header">skrymsel</h1>
+      <span class="site-description">alla skrymsel och vrån är täckta med damm <br>och det spelar ingen roll hur mycket vi dammsuger</span>
+      <hr>
+      </header>
+      {% block body %}
+      {% endblock %}
+    {% block scripts %}{% endblock %}
+  </body>
+</html>
