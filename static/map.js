@@ -1,0 +1,53 @@
+const pins = JSON.parse(document.getElementById("pins-data").textContent);
+
+const escapeHtml = (value) =>
+  String(value ?? "").replace(/[&<>"']/g, (char) => {
+    const escapes = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return escapes[char];
+  });
+
+const map = new maplibregl.Map({
+  container: "map",
+  style: "/styles/min/style.json",
+  center: [18.0714, 59.3174],
+  zoom: 12,
+  minZoom: 11,
+  maxZoom: 16,
+});
+
+map.addControl(new maplibregl.NavigationControl());
+
+map.on("load", () => {
+  map.setMaxBounds([
+    [16.46, 58.64],
+    [19.33, 60.0],
+  ]);
+
+  for (const pin of pins) {
+    const title = escapeHtml(pin.title);
+    const description = escapeHtml(pin.description || "");
+    const imageUrl = typeof pin.popup_image === "string" ? pin.popup_image : "";
+    const imageHtml = imageUrl
+      ? `<img class="popup-image" src="${escapeHtml(imageUrl)}" alt="${title}" loading="lazy">`
+      : "";
+
+    const popup = new maplibregl.Popup({ offset: 24 }).setHTML(
+      `<div class="popup-content">
+        ${imageHtml}
+        <strong><a href="${pin.url}">${title}</a></strong>
+        <p>${description}</p>
+      </div>`,
+    );
+
+    new maplibregl.Marker()
+      .setLngLat([pin.lon, pin.lat])
+      .setPopup(popup)
+      .addTo(map);
+  }
+});
