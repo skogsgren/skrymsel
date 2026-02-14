@@ -93,9 +93,8 @@ def main(serve_dir: Path) -> int:
     (serve_dir / "index.html").write_text(
         index_template.render(
             pins=pins,
-            pins_json=json.dumps([pin_to_json(pin) for pin in pins]),
-        ),
-        encoding="utf-8",
+            pins_data=[pin_to_json(pin) for pin in pins],
+        )
     )
     copy_static_assets(serve_dir)
     return 0
