@@ -35,6 +35,11 @@ pushd landcover
         ne_10m_glaciated_areas
 popd
 
+FILE="process-openmaptiles.lua"
+URL="https://raw.githubusercontent.com/systemed/tilemaker/refs/heads/master/resources/process-openmaptiles.lua"
+echo "$(date) downloading $URL ==>$FILE"
+curl -fL -o "$FILE" "$URL"
+
 FILE="sweden.osm.pbf"
 URL="http://download.geofabrik.de/europe/sweden-latest.osm.pbf"
 echo "$(date) downloading $URL ==>$FILE"

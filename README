@@ -51,12 +51,9 @@ WEBSITE SETUP
 
     python3 build.py /path/to/serve/dir
 
-CRED
+THEME
     theme's basically a stripped down version of
     https://github.com/openmaptiles/osm-bright-gl-style
-
-    config/lua ripped straight from tilemap
-    https://github.com/systemed/tilemaker
 
   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .
  / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ /
