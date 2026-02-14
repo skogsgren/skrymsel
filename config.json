@@ -3,7 +3,8 @@
     "paths": {
       "root": "/data",
       "mbtiles": "data",
-      "styles": "styles"
+      "styles": "styles",
+      "fonts": "fonts"
     }
   },
   "data": {
