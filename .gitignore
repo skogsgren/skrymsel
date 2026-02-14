@@ -3,6 +3,7 @@ data/*
 !data/process-openmaptiles.lua
 
 fonts/
+serve/
 
 *.swp
 .env
